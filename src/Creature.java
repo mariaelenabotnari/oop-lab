@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Creature {
     private int id;
@@ -57,4 +58,9 @@ public class Creature {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Creature{name='" + name + "', planet='" + planet + "', age=" + age +
+                ", isHuman=" + isHuman + ", traits=" + Arrays.toString(traits) + "}";
+    }
 }
