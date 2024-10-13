@@ -1,0 +1,24 @@
+{
+  "creatures" : [ {
+    "id" : 2,
+    "isHuman" : true,
+    "planet" : "Asgard",
+    "age" : 2034,
+    "traits" : [ "BLONDE", "TALL" ],
+    "name" : "Asgardian"
+  }, {
+    "id" : 9,
+    "isHuman" : true,
+    "planet" : "Asgard",
+    "age" : null,
+    "traits" : [ "BLONDE", "TALL" ],
+    "name" : "Asgardian"
+  }, {
+    "id" : 16,
+    "isHuman" : true,
+    "planet" : null,
+    "age" : 154,
+    "traits" : [ "BLONDE", "TALL" ],
+    "name" : "Asgardian"
+  } ]
+}

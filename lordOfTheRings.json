@@ -1,0 +1,38 @@
+{
+  "creatures" : [ {
+    "id" : 5,
+    "isHuman" : true,
+    "planet" : "Earth",
+    "age" : 451,
+    "traits" : [ "BLONDE", "POINTY_EARS" ],
+    "name" : "Elf"
+  }, {
+    "id" : 6,
+    "isHuman" : true,
+    "planet" : "Earth",
+    "age" : 124,
+    "traits" : [ "SHORT", "BULKY" ],
+    "name" : "Dwarf"
+  }, {
+    "id" : 12,
+    "isHuman" : true,
+    "planet" : null,
+    "age" : 7523,
+    "traits" : null,
+    "name" : "Elf"
+  }, {
+    "id" : 13,
+    "isHuman" : null,
+    "planet" : "Earth",
+    "age" : null,
+    "traits" : [ "SHORT", "BULKY" ],
+    "name" : "Dwarf"
+  }, {
+    "id" : 20,
+    "isHuman" : true,
+    "planet" : null,
+    "age" : null,
+    "traits" : [ "BULKY" ],
+    "name" : "Dwarf"
+  } ]
+}
