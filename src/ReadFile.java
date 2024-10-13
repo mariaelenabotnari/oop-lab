@@ -14,6 +14,25 @@ public class ReadFile {
         ArrayList<Creature> creatures = new ArrayList<>();
         ArrayList<Creature> creaturesEx = new ArrayList<>();
 
+        ArrayList<String> Marvel = new ArrayList<>();
+        Marvel.add("Asgardian");
+        ArrayList<Creature> MarvelCreatures = new ArrayList<>();
+
+        ArrayList<String> StarWars = new ArrayList<>();
+        StarWars.add("Wookie");
+        StarWars.add("Ewok");
+        ArrayList<Creature> StarWarsCreatures = new ArrayList<>();
+
+        ArrayList<String> Hitchhiker = new ArrayList<>();
+        Hitchhiker.add("Betelgeusian");
+        Hitchhiker.add("Vogons");
+        ArrayList<Creature> HitchhikerCreatures = new ArrayList<>();
+
+        ArrayList<String> LordOfTheRings = new ArrayList<>();
+        LordOfTheRings.add("Elf");
+        LordOfTheRings.add("Dwarf");
+        ArrayList<Creature> LordOfTheRingCreatures = new ArrayList<>();
+
         try {
             File inputDataFile = new File("C:\\Users\\maria\\IdeaProjects\\firstproject\\src\\input.json");
             Scanner readInputFile = new Scanner(inputDataFile);
@@ -64,11 +83,6 @@ public class ReadFile {
             System.out.println("File not found.");
         }
 
-        for (int i = 0; i < creatures.size(); i++) {
-            if (creatures.get(i).getId() % 2 == 0) {
-                System.out.println(creatures.get(i).toString());
-            }
-        }
         HitchhikerEx Betelgeusian = new HitchhikerEx();
         Betelgeusian.setIsHuman(true);
         Betelgeusian.setPlanet("BETELGEUSE");
@@ -126,5 +140,101 @@ public class ReadFile {
         creaturesEx.add(Ewok);
         creaturesEx.add(Asgardian);
 
+        for (Creature creature : creatures) {
+            for (Creature creatureEx : creaturesEx) {
+                int criteriaMet = 0;
+                int nrFields = 0;
+
+                if (creature.getPlanet() != null) {
+                    nrFields++;
+                }
+
+                if (creature.getPlanet() != null && creatureEx.getPlanet() != null && creature.getPlanet().equals(creatureEx.getPlanet())) {
+                    criteriaMet++;
+                }
+
+                if (creature.getIsHuman() != null) {
+                    nrFields++;
+                }
+
+                if (creature.getIsHuman() != null && creatureEx.getIsHuman() != null) {
+                    if (creature.getIsHuman().equals(creatureEx.getIsHuman())) {
+                        criteriaMet++;
+                    }
+                }
+
+                if (creature.getAge() != null) {
+                    nrFields++;
+                }
+
+                if (creature.getAge() != null && creatureEx.getAge() != null && creature.getAge() <= creatureEx.getAge()) {
+                    criteriaMet++;
+                }
+
+                int traitMatch = 0;
+                if (creature.getTraits() != null && creatureEx.getTraits() != null) {
+                    nrFields++;
+
+                    int nrTraits = creature.getTraits().length;
+
+                    if (nrTraits == 1) {
+                        for (String traitEx : creatureEx.getTraits()) {
+                            if (creature.getTraits()[0].equals(traitEx)) {
+                                traitMatch++;
+                                break;
+                            }
+                        }
+                    } else if (nrTraits == 2) {
+                        for (String trait : creature.getTraits()) {
+                            boolean matchFound = false;
+                            for (String traitEx : creatureEx.getTraits()) {
+                                if (trait.equals(traitEx)) {
+                                    matchFound = true;
+                                    break;
+                                }
+                            }
+                            if (matchFound) {
+                                traitMatch++;
+                            }
+                        }
+                    }
+
+                    if (nrTraits == 1 && traitMatch == 1) {
+                        criteriaMet++;
+                    } else if (nrTraits == 2 && traitMatch == 2 && creatureEx.getTraits().length == 2) {
+                        criteriaMet++;
+                    }
+                }
+
+                if (criteriaMet == nrFields) {
+                    if (Marvel.contains(creatureEx.getName())) {
+                        MarvelCreatures.add(creature);
+
+                    } else if (StarWars.contains(creatureEx.getName())) {
+                        StarWarsCreatures.add(creature);
+
+                    } else if (LordOfTheRings.contains(creatureEx.getName())) {
+                        LordOfTheRingCreatures.add(creature);
+
+                    } else if (Hitchhiker.contains(creatureEx.getName())) {
+                        HitchhikerCreatures.add(creature);
+                    }
+
+                    creature.setName(creatureEx.getName());
+                }
+            }
+        }
+
+        System.out.println("Creatures from Marvel Universe: ");
+        System.out.println(MarvelCreatures);
+
+        System.out.println("\nCreatures from Star Wars Universe: ");
+        System.out.println(StarWarsCreatures);
+
+        System.out.println("\nCreatures from Lord of the Rings Universe: ");
+        System.out.println(LordOfTheRingCreatures);
+
+        System.out.println("\nCreatures from Hitchhiker Universe: ");
+        System.out.println(HitchhikerCreatures);
     }
 }
