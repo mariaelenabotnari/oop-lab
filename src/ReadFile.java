@@ -1,9 +1,11 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,14 +80,16 @@ public class ReadFile {
                 newCreature.setName(nameValue);
 
                 creatures.add(newCreature);
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
         }
 
+        System.out.println(creatures);
         HitchhikerEx Betelgeusian = new HitchhikerEx();
         Betelgeusian.setIsHuman(true);
-        Betelgeusian.setPlanet("BETELGEUSE");
+        Betelgeusian.setPlanet("Betelgeuse");
         Betelgeusian.setAge(100);
         Betelgeusian.setTraits(new String[]{"EXTRA_ARMS", "EXTRA_HEAD"});
         Betelgeusian.setName("Betelgeusian");
@@ -113,7 +117,7 @@ public class ReadFile {
 
         StarWarsEx Wookie = new StarWarsEx();
         Wookie.setIsHuman(false);
-        Wookie.setPlanet("Kashyyk");
+        Wookie.setPlanet("Kashyyyk");
         Wookie.setAge(400);
         Wookie.setTraits(new String[]{"HAIRY", "TALL"});
         Wookie.setName("Wookie");
@@ -225,16 +229,28 @@ public class ReadFile {
             }
         }
 
-        System.out.println("Creatures from Marvel Universe: ");
-        System.out.println(MarvelCreatures);
-
         System.out.println("\nCreatures from Star Wars Universe: ");
         System.out.println(StarWarsCreatures);
-
         System.out.println("\nCreatures from Lord of the Rings Universe: ");
         System.out.println(LordOfTheRingCreatures);
-
         System.out.println("\nCreatures from Hitchhiker Universe: ");
         System.out.println(HitchhikerCreatures);
+        System.out.println("\nCreatures from Marvel Universe: ");
+        System.out.println(MarvelCreatures);
+
+        jsonObject.enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            jsonObject.writeValue(new File("marvel.json"), new CreatureWrapper(MarvelCreatures));
+            jsonObject.writeValue(new File("starwars.json"), new CreatureWrapper(StarWarsCreatures));
+            jsonObject.writeValue(new File("lordOfTheRings.json"), new CreatureWrapper(LordOfTheRingCreatures));
+            jsonObject.writeValue(new File("hitchhiker.json"), new CreatureWrapper(HitchhikerCreatures));
+
+            System.out.println("\nJSON data written successfully to files.");
+
+        } catch (IOException e) {
+            System.out.println("\nError writing JSON data to files.");
+            throw new RuntimeException(e);
+        }
     }
 }
