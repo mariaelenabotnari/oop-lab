@@ -1,3 +1,5 @@
+package LAB1;
+
 import java.util.List;
 
 public class CreatureWrapper {

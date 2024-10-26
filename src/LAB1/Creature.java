@@ -1,3 +1,5 @@
+package LAB1;
+
 import java.util.Arrays;
 
 public class Creature {
@@ -60,7 +62,7 @@ public class Creature {
 
     @Override
     public String toString() {
-        return "Creature{name='" + name + "', planet='" + planet + "', age=" + age +
+        return "LAB1.Creature{name='" + name + "', planet='" + planet + "', age=" + age +
                 ", isHuman=" + isHuman + ", traits=" + Arrays.toString(traits) + "}";
     }
 }

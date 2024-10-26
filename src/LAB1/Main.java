@@ -1,3 +1,5 @@
+package LAB1;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class Main {
