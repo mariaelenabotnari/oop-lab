@@ -3,9 +3,10 @@ package LAB1;
 import java.util.List;
 
 public class CreatureWrapper {
+    private String universeName;
     private List<Creature> creatures;
 
-    public CreatureWrapper(List<Creature> creatures) {
+    public CreatureWrapper(String universeName, List<Creature> creatures) {
         this.creatures = creatures;
     }
 

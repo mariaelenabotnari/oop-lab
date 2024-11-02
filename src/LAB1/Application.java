@@ -11,12 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFile {
+public class Application {
 
-    public void readFile () {
+    public void run() {
         ObjectMapper jsonObject = new ObjectMapper();
         ArrayList<Creature> creatures = new ArrayList<>();
-        ArrayList<Creature> creaturesEx = new ArrayList<>();
+        ArrayList<Creature> creaturesCriterias = new ArrayList<>();
 
         ArrayList<String> Marvel = new ArrayList<>();
         Marvel.add("Asgardian");
@@ -37,6 +37,7 @@ public class ReadFile {
         LordOfTheRings.add("Dwarf");
         ArrayList<Creature> LordOfTheRingCreatures = new ArrayList<>();
 
+        // TODO split into methods (reading, mapping)
         try {
             File inputDataFile = new File("C:\\Users\\maria\\IdeaProjects\\firstproject\\src\\input.json");
             Scanner readInputFile = new Scanner(inputDataFile);
@@ -88,6 +89,7 @@ public class ReadFile {
             System.out.println("File not found.");
         }
 
+        // TODO maybe use constructors, for concise code
         System.out.println(creatures);
         HitchhikerEx Betelgeusian = new HitchhikerEx();
         Betelgeusian.setIsHuman(true);
@@ -138,16 +140,17 @@ public class ReadFile {
         Asgardian.setTraits(new String[]{"BLONDE", "TALL"});
         Asgardian.setName("Asgardian");
 
-        creaturesEx.add(Betelgeusian);
-        creaturesEx.add(Vogons);
-        creaturesEx.add(Elf);
-        creaturesEx.add(Dwarf);
-        creaturesEx.add(Wookie);
-        creaturesEx.add(Ewok);
-        creaturesEx.add(Asgardian);
+        creaturesCriterias.add(Betelgeusian);
+        creaturesCriterias.add(Vogons);
+        creaturesCriterias.add(Elf);
+        creaturesCriterias.add(Dwarf);
+        creaturesCriterias.add(Wookie);
+        creaturesCriterias.add(Ewok);
+        creaturesCriterias.add(Asgardian);
 
+        // TODO Refactor to a matching strategy
         for (Creature creature : creatures) {
-            for (Creature creatureEx : creaturesEx) {
+            for (Creature creatureEx : creaturesCriterias) {
                 int criteriaMet = 0;
                 int nrFields = 0;
 
@@ -238,21 +241,22 @@ public class ReadFile {
         System.out.println("\nCreatures from Hitchhiker Universe: ");
         System.out.println(HitchhikerCreatures);
         System.out.println("\nCreatures from Marvel Universe: ");
-        System.out.println(MarvelCreatures);
+        System.out.println(MarvelCreatures);}}
 
-        jsonObject.enable(SerializationFeature.INDENT_OUTPUT);
+       // jsonObject.enable(SerializationFeature.INDENT_OUTPUT);
 
-        try {
-            jsonObject.writeValue(new File("marvel.json"), new CreatureWrapper(MarvelCreatures));
-            jsonObject.writeValue(new File("starwars.json"), new CreatureWrapper(StarWarsCreatures));
-            jsonObject.writeValue(new File("lordOfTheRings.json"), new CreatureWrapper(LordOfTheRingCreatures));
-            jsonObject.writeValue(new File("hitchhiker.json"), new CreatureWrapper(HitchhikerCreatures));
+        // TODO split into a separate method, and use iteration to write iteratively to files
+        //try {
+            //jsonObject.writeValue(new File(CreatureWrapper.name), new CreatureWrapper(MarvelCreatures));
+            //jsonObject.writeValue(new File("starwars.json"), new CreatureWrapper(StarWarsCreatures));
+           // jsonObject.writeValue(new File("lordOfTheRings.json"), new CreatureWrapper(LordOfTheRingCreatures));
+           // jsonObject.writeValue(new File("hitchhiker.json"), new CreatureWrapper(HitchhikerCreatures));
 
-            System.out.println("\nJSON data written successfully to files.");
+           // System.out.println("\nJSON data written successfully to files.");
 
-        } catch (IOException e) {
-            System.out.println("\nError writing JSON data to files.");
-            throw new RuntimeException(e);
-        }
-    }
-}
+       // } //catch (IOException e) {
+          //  System.out.println("\nError writing JSON data to files.");
+          //  throw new RuntimeException(e);
+        //}
+   // }
+//}

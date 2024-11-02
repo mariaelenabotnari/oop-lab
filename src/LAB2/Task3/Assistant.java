@@ -11,7 +11,6 @@ public class Assistant {
     private static List<Display> assignedDisplays;
 
     public Assistant() {
-        // Initialize the list in the constructor
         assignedDisplays = new ArrayList<>();
     }
 
@@ -27,26 +26,21 @@ public class Assistant {
         return assignedDisplays;
     }
 
-    void assignDisplay(Display Monitor1, Display Monitor2, Display Monitor3) {
-        getAssignedDisplays().add(Monitor1);
-        getAssignedDisplays().add(Monitor2);
-        getAssignedDisplays().add(Monitor3);
+    public void assignDisplay(Display monitor1) {
+        assignedDisplays.add(monitor1);
         System.out.println("List of monitors: ");
-        System.out.println(getAssignedDisplays());
+        System.out.println(assignedDisplays);
     }
 
-    static void assist () {
-        ArrayList<Integer> sizes = new ArrayList<Integer>();
-
+    public void assist() {
         for (int i = 0; i < assignedDisplays.size(); i++) {
-            int size = assignedDisplays.get(i).getWidth() * assignedDisplays.get(i).getHeight();
-            sizes.add(size);
+            for (int j = i + 1; j < assignedDisplays.size(); j++) {
+                assignedDisplays.get(i).compareWithMonitors(assignedDisplays.get(j));
+            }
         }
-
-        Display.compareWithMonitors(sizes.get(0), sizes.get(1), sizes.get(2), assignedDisplays.get(0), assignedDisplays.get(1), assignedDisplays.get(2));
     }
 
-    static Display chooseMonitor() {
+    public static Display chooseMonitor() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nAvailable Monitors:");
         for (int i = 0; i < assignedDisplays.size(); i++) {
@@ -62,15 +56,16 @@ public class Assistant {
         }
     }
 
-    static Display buyDisplay(Display MonitorToBuy) {
+    public static Display buyDisplay(Display monitorToBuy) {
         Display currentDisplay = null;
         for (int i = 0; i < assignedDisplays.size(); i++) {
             currentDisplay = assignedDisplays.get(i);
-            if (MonitorToBuy.getModel().equals(currentDisplay.getModel()) &&
-                    MonitorToBuy.getHeight() == currentDisplay.getHeight() &&
-                    MonitorToBuy.getWidth() == currentDisplay.getWidth() &&
-                    MonitorToBuy.getPpi() == currentDisplay.getPpi()) {
+            if (monitorToBuy.getModel().equals(currentDisplay.getModel()) &&
+                    monitorToBuy.getHeight() == currentDisplay.getHeight() &&
+                    monitorToBuy.getWidth() == currentDisplay.getWidth() &&
+                    monitorToBuy.getPpi() == currentDisplay.getPpi()) {
                 assignedDisplays.remove(i);
+                break;
             }
         }
         System.out.println("\nRemaining Monitors: ");

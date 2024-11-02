@@ -2,137 +2,110 @@ package LAB2.Task2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TextData extends ReadFile {
 
-    String fileName;
-    String text;
-    String filePath;
-    int numberOfVowels;
-    int numberOfConsonants;
-    int numberOfLetters;
-    int numberOfSentences;
-    String longestWord;
+    private String fileName;
+    private String text;
+    private String filePath;
+    private int numberOfVowels;
+    private int numberOfConsonants;
+    private int numberOfLetters;
+    private int numberOfSentences;
+    private String longestWord;
 
-    //Getters
-    public String getFilename () {
+    public TextData(String textFile) throws FileNotFoundException {
+        this.text = readFileIntroString(textFile);
+        this.fileName = new File(textFile).getName();
+        this.filePath = new File(textFile).getParent();
+        this.numberOfVowels = calculateVowels(text);
+        this.numberOfLetters = calculateLetters(text);
+        this.numberOfConsonants = calculateConsonants();
+        this.numberOfSentences = calculateSentences(text);
+        this.longestWord = findLongestWord(text);
+    }
+
+    // Getters
+    public String getFilename() {
         return fileName;
     }
 
-    public String getPath () {
+    public String getPath() {
         return filePath;
     }
 
-    public String getText () {
+    public String getText() {
         return text;
     }
 
-    int getNumberOfVowels () {
+    public int getNumberOfVowels() {
         return numberOfVowels;
     }
 
-    int getNumberOfConsonants () {
+    public int getNumberOfConsonants() {
         return numberOfConsonants;
     }
 
-    int getNumberOfLetters () {
+    public int getNumberOfLetters() {
         return numberOfLetters;
     }
 
-    int getNumberOfSentences () {
+    public int getNumberOfSentences() {
         return numberOfSentences;
     }
 
-    String getLongestWord () {
+    public String getLongestWord() {
         return longestWord;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        if (args.length == 0) {
-            System.out.println("Provide a file path.");
-            return;
-        }
-
-        String filePath = args[0];
-        File newFile = new File(filePath);
-        TextData fileContent = new TextData();
-
-        fileContent.text = fileContent.readFileIntroString(filePath);
-
-        fileContent.fileName = newFile.getName();
-        String fileName = fileContent.getFilename();
-        System.out.println("File name: " + fileName);
-
-        fileContent.filePath = newFile.getParent();
-        String fileDirectory = fileContent.getPath();
-        System.out.println("File Path: " + fileDirectory);
-
-        String textFile = fileContent.getText();
-        System.out.println("The text in the file: " + textFile);
-
+    private int calculateVowels(String text) {
         int vowelsCount = 0;
-        ArrayList<String> vowels = new ArrayList<String>();
-        vowels.add("a");
-        vowels.add("e");
-        vowels.add("i");
-        vowels.add("o");
-        vowels.add("u");
-
-        for (char character : textFile.toLowerCase().toCharArray()) {
-            for (int i = 0; i < vowels.size(); i++) {
-                if (character == vowels.get(i).charAt(0)) {
-                    vowelsCount++;
-                }
+        String vowels = "aeiou";
+        for (char character : text.toLowerCase().toCharArray()) {
+            if (vowels.indexOf(character) != -1) {
+                vowelsCount++;
             }
         }
-        fileContent.numberOfVowels = vowelsCount;
-        System.out.println("Number of vowels: " + fileContent.getNumberOfVowels());
+        return vowelsCount;
+    }
 
-        int stringLength = 0;
-        for (char character: textFile.toCharArray()) {
+    private int calculateLetters(String text) {
+        int letterCount = 0;
+        for (char character : text.toCharArray()) {
             if (Character.isLetter(character)) {
-                stringLength++;
+                letterCount++;
             }
         }
+        return letterCount;
+    }
 
-        int consonantsCount = stringLength - vowelsCount;
-        fileContent.numberOfConsonants = consonantsCount;
-        System.out.println("Number of consonants:" + " " + fileContent.getNumberOfConsonants());
+    private int calculateConsonants() {
+        return numberOfLetters - numberOfVowels;
+    }
 
-        fileContent.numberOfLetters = stringLength;
-        System.out.println("Number of letters:" + " " + fileContent.getNumberOfLetters());
-
+    private int calculateSentences(String text) {
         int sentenceCount = 0;
-        for (char character: textFile.toCharArray()) {
+        for (char character : text.toCharArray()) {
             if (character == '.' || character == '!' || character == '?') {
                 sentenceCount++;
             }
         }
-        fileContent.numberOfSentences = sentenceCount;
-        System.out.println("Number of sentences: " + fileContent.getNumberOfSentences());
+        return sentenceCount;
+    }
 
-        ArrayList<Integer> wordsLength = new ArrayList<>();
-        HashMap<String, Integer> dictionary = new HashMap<>();
-        String[] words = textFile.split("[\\s\\p{Punct}]+");
-        for (String word: words) {
-            int sizeWord = word.length();
-            dictionary.put(word, sizeWord);
-            wordsLength.add(sizeWord);
-        }
-
-        int max = dictionary.get(words[0]);
-        String longestWord = words[-0];
-        for (String key : dictionary.keySet()) {
-            if (max < dictionary.get(key)) {
-                max = dictionary.get(key);
-                longestWord = key;
+    private String findLongestWord(String text) {
+        String longestWord = "";
+        for (String word : text.split("[\\s\\p{Punct}]+")) {
+            if (word.length() > longestWord.length()) {
+                longestWord = word;
             }
         }
+        return longestWord;
+    }
 
-        fileContent.longestWord = longestWord;
-        System.out.println("The longest word: " + fileContent.getLongestWord() + "." + " It has " + max + " characters");
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Provide a file path.");
+        }
     }
 }
-
