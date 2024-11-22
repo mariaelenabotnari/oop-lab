@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Barista {
 
     public void chooseDrink() {
+        // TODO refactor to only one unit of logic for coffee making
         System.out.println("\nDrink Options: ");
 
         System.out.println("1. Coffee");
