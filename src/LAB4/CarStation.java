@@ -7,29 +7,35 @@ public class CarStation {
     private final Dineable diningServiceRobot;
     private final Refuelable electricStation;
     private final Refuelable gasStation;
+    private QueueInterface queueCarsObject;
+    private QueueInterface refuelStationQueueObject;
+    private QueueInterface serviceStationQueueObject;
 
-
-    public CarStation(Dineable diningServicePeople, Dineable diningServiceRobot, Refuelable electricStation, Refuelable gasStation) {
+    public CarStation(Dineable diningServicePeople, Dineable diningServiceRobot, Refuelable electricStation, Refuelable gasStation, QueueInterface queueCarsObject, QueueInterface refuelStationQueueObject, QueueInterface serviceStationQueueObject) {
         this.diningServicePeople = diningServicePeople;
         this.diningServiceRobot = diningServiceRobot;
         this.electricStation = electricStation;
         this.gasStation = gasStation;
+        this.queueCarsObject = queueCarsObject;
+        this.refuelStationQueueObject = refuelStationQueueObject;
+        this.serviceStationQueueObject = serviceStationQueueObject;
     }
 
-    void addCar(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
-        for (Car car : queueCars) {
-            refuelStationQueue.offer(car);
+    void addCar(Car currentCar, Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
 
-            if (car.getIsDining()) {
-                serviceStationQueue.offer(car);
-            }
+        queueCarsObject.addElementQueue(queueCars, currentCar);
+        refuelStationQueueObject.addElementQueue(refuelStationQueue, currentCar);
+
+        if (currentCar.getIsDining()) {
+            serviceStationQueue.offer(currentCar);
         }
+        queueCars.poll();
     }
 
     void serveCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue, CarsCount count) {
+        while (!refuelStationQueue.isEmpty()) {
+            Car car = refuelStationQueue.poll();
 
-
-        for (Car car : refuelStationQueue) {
             if (car.getType().equals("electric")) {
                 electricStation.refuel(car, count);
             }
@@ -43,8 +49,6 @@ public class CarStation {
                     diningServiceRobot.serveDinner(car, count);
                 }
             }
-            refuelStationQueue.poll();
-            serviceStationQueue.poll();
         }
     }
 }

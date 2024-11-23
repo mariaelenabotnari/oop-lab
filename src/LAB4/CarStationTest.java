@@ -2,6 +2,7 @@ package LAB4;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,21 +25,26 @@ public class CarStationTest {
         ElectricStation electricStation = new ElectricStation();
         GasStation gasStation = new GasStation();
 
-        CarStation carStation = new CarStation(peopleDinner, robotDinner, electricStation, gasStation);
+        CarStation carStation = new CarStation(peopleDinner, robotDinner, electricStation, gasStation, queueCarsObject, refuelStationObject, serviceStationObject);
 
         CarsCount count = new CarsCount();
 
-        carStation.addCar(queueCars, refuelStationQueue, serviceStationQueue);
-        carStation.serveCars(queueCars, refuelStationQueue, serviceStationQueue, count);
+        Car car1 = new Car(1, "electric", "people", false, 30);
+        Car car2 = new Car(2, "gas", "people", true, 10);
+        Car car3 = new Car(3, "electric", "robots", false, 10);
+        Car car4 = new Car(4, "electric", "robots", false, 13);
 
-        int expectedRefuelQueueSize = queueCars.size();
-        int expectedServiceQueueSize = (int) queueCars.stream().filter(Car::getIsDining).count();
+        carStation.addCar(car1, queueCars, refuelStationQueue, serviceStationQueue);
+        carStation.addCar(car2, queueCars, refuelStationQueue, serviceStationQueue);
+        carStation.addCar(car3, queueCars, refuelStationQueue, serviceStationQueue);
+        carStation.addCar(car4, queueCars, refuelStationQueue, serviceStationQueue);
 
-        carStation.addCar(queueCars, refuelStationQueue, serviceStationQueue);
-        assertTrue(queueCars.isEmpty(), "queueCars should be empty after processing.");
-        assertEquals(expectedRefuelQueueSize, refuelStationQueue.size(),
-                "refuelStationQueue should contain all cars from queueCars.");
+        int expectedServiceQueueSize = 1;
         assertEquals(expectedServiceQueueSize, serviceStationQueue.size(),
                 "serviceStationQueue should contain only cars marked for dining.");
+
+        carStation.serveCars(queueCars, refuelStationQueue, serviceStationQueue, count);
+
+        assertEquals(0, queueCars.size(), "queueCars should be empty after processing.");
     }
 }

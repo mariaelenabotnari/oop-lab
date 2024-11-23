@@ -15,6 +15,8 @@ public class Car {
         this.consumption = consumption;
     }
 
+    public Car() {}
+
     @Override
     public String toString() {
         return "Car {id=" + id + ", type='" + type + "', passengers='" + passengers + "'}";
