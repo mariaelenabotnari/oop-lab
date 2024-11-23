@@ -4,7 +4,8 @@ public class GasStation implements Refuelable {
     @Override
     public void refuel(Car car, CarsCount count) {
         System.out.println("Refueling gas car " + car.getId() + ".");
-        count.nrGasCars++;
-        count.consumtionGasCars = car.getConsumption() + count.consumtionGasCars;
+        int currentNrGasCars = count.getNrGasCars();
+        count.setNrGasCars(currentNrGasCars + 1);
+        count.setConsumtionGasCars(car.getConsumption() + count.getConsumtionGasCars());
     }
 }

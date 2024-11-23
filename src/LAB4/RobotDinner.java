@@ -6,6 +6,7 @@ public class RobotDinner implements Dineable {
     @Override
     public void serveDinner (Car car, CarsCount count) {
         System.out.println("Dinner is served to robots in car " + car.getId() + ".");
-        count.nrCarsDined++;
+        int currentNrCarsDining = count.getNrCarsDined();
+        count.setNrCarsDined(currentNrCarsDining + 1);
     }
 }

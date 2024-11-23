@@ -31,11 +31,13 @@ public class TestCarsCount {
 
         for (Car car : carQueue) {
             if (car.getPassengers().equals("robots")) {
-                count.nrCarsWithRobots++;
+                int currentNrRobots = count.getNrCarsWithRobots();
+                count.setNrCarsWithRobots(currentNrRobots + 1);
             }
 
             if (car.getPassengers().equals("people")) {
-                count.nrCarsWithPeople++;
+                int currentNrPeople = count.getNrCarsWithPeople();
+                count.setNrCarsWithPeople(currentNrPeople + 1);
             }
 
             if (car.getIsDining() && car.getPassengers().equals("robots")) {
@@ -55,16 +57,15 @@ public class TestCarsCount {
             }
         }
 
-        count.nrCarsNotDined = carQueue.size() - count.nrCarsDined;
+        count.setNrCarsNotDined(carQueue.size() - count.getNrCarsDined());
 
-
-        assertEquals(3, count.nrElectricCars, "The number of electric cars should be 3.");
-        assertEquals(1, count.nrGasCars, "The number of gas cars should be 1.");
-        assertEquals(2, count.nrCarsWithPeople, "The number of cars with people should be 2.");
-        assertEquals(2, count.nrCarsWithRobots, "The number of cars with robots should be 2.");
-        assertEquals(1, count.nrCarsDined, "The number of cars that dined should be 1");
-        assertEquals(3, count.nrCarsNotDined, "The number of electric cars that didn't dine should be 3.");
-        assertEquals(53, count.consumptionElectricCars, "The amount consumed by the electric cars should be 53.");
-        assertEquals(10, count.consumtionGasCars, "The amount consumed by the gas cars should be 10.");
+        assertEquals(3, count.getNrElectricCars(), "The number of electric cars should be 3.");
+        assertEquals(1, count.getNrGasCars(), "The number of gas cars should be 1.");
+        assertEquals(2, count.getNrCarsWithPeople(), "The number of cars with people should be 2.");
+        assertEquals(2, count.getNrCarsWithRobots(), "The number of cars with robots should be 2.");
+        assertEquals(1, count.getNrCarsDined(), "The number of cars that dined should be 1");
+        assertEquals(3, count.getNrCarsNotDined(), "The number of electric cars that didn't dine should be 3.");
+        assertEquals(53, count.getConsumptionElectricCars(), "The amount consumed by the electric cars should be 53.");
+        assertEquals(10, count.getConsumtionGasCars(), "The amount consumed by the gas cars should be 10.");
     }
 }
