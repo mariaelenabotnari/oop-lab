@@ -29,24 +29,29 @@ public class CarStation {
         if (currentCar.getIsDining()) {
             serviceStationQueue.offer(currentCar);
         }
+
         queueCars.poll();
     }
 
-    void serveCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue, CarsCount count) {
+    void serveCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
         while (!refuelStationQueue.isEmpty()) {
             Car car = refuelStationQueue.poll();
 
             if (car.getType().equals("electric")) {
-                electricStation.refuel(car, count);
+                electricStation.refuel(car);
+                //count.incrementNrElectricCars();
             }
             else {
-                gasStation.refuel(car, count);
+                gasStation.refuel(car);
+                //count.incrementNrGasCars();
             }
             if (car.getIsDining()) {
                 if (car.getPassengers().equals("people")) {
-                    diningServicePeople.serveDinner(car, count);
+                    diningServicePeople.serveDinner(car);
+                    //count.incrementNrCarsDined();
                 } else {
-                    diningServiceRobot.serveDinner(car, count);
+                    diningServiceRobot.serveDinner(car);
+                    //count.incrementNrCarsNotDined();
                 }
             }
         }

@@ -7,7 +7,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class ReadJson {
-    public static void readJsonData (String path, Queue<Car> queue) throws IOException {
+    public static void readJsonData (String path, Queue<Car> queue) throws IOException, InterruptedException {
         Path folderPath = Paths.get(path);
         DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath, "*.json");
 
@@ -16,6 +16,7 @@ public class ReadJson {
         for (Path filePath : stream) {
             Car car = mapper.readValue(filePath.toFile(), Car.class);
             queue.add(car);
+            Thread.sleep(3000);
         }
     }
 }

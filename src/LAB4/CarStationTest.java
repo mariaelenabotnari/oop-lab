@@ -43,7 +43,7 @@ public class CarStationTest {
         assertEquals(expectedServiceQueueSize, serviceStationQueue.size(),
                 "serviceStationQueue should contain only cars marked for dining.");
 
-        carStation.serveCars(queueCars, refuelStationQueue, serviceStationQueue, count);
+        carStation.serveCars(queueCars, refuelStationQueue, serviceStationQueue);
 
         assertEquals(0, queueCars.size(), "queueCars should be empty after processing.");
     }

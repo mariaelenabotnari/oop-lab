@@ -1,12 +1,9 @@
 package LAB4;
 
-import java.awt.*;
-
 public class RobotDinner implements Dineable {
     @Override
-    public void serveDinner (Car car, CarsCount count) {
+    public void serveDinner(Car car) {
         System.out.println("Dinner is served to robots in car " + car.getId() + ".");
-        int currentNrCarsDining = count.getNrCarsDined();
-        count.setNrCarsDined(currentNrCarsDining + 1);
+        //count.incrementNrCarsDined();
     }
 }

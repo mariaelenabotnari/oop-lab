@@ -2,12 +2,12 @@ package LAB4;
 
 import java.io.IOException;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
 public class SemaphoreServing {
-    public void servingCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) throws IOException, InterruptedException {
-
+    public void servingCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue, CarsCount count) throws IOException, InterruptedException {
         QueueCars queueCarsObject = new QueueCars();
         RefuelStationQueue refuelStationObject = new RefuelStationQueue();
         ServiceStationQueue serviceStationObject = new ServiceStationQueue();
@@ -22,11 +22,12 @@ public class SemaphoreServing {
         Semaphore semaphore = new Semaphore(2);
         CountDownLatch latch = new CountDownLatch(queueCars.size());
 
+        Queue<Car> threadSafeQueueCars = new ConcurrentLinkedQueue<>(queueCars);
+
         while (!queueCars.isEmpty()) {
             Car carInLine;
-
-            synchronized (queueCars) {
-                carInLine = queueCars.poll();
+            synchronized (threadSafeQueueCars) {
+                carInLine = queueCars.poll();;
             }
 
             if (carInLine != null) {
@@ -35,12 +36,33 @@ public class SemaphoreServing {
                 new Thread(() -> {
                     try {
                         semaphore.acquire();
+                        carStation.addCar(currentCar, threadSafeQueueCars, refuelStationQueue, serviceStationQueue);
 
-                        carStation.addCar(currentCar, queueCars, refuelStationQueue, serviceStationQueue);
+                        if (currentCar.getType().equalsIgnoreCase("electric")) {
+                            count.incrementNrElectricCars();
+                            count.addConsumptionElectricCars(currentCar.getConsumption());
+                        } else if (currentCar.getType().equalsIgnoreCase("gas")) {
+                            count.incrementNrGasCars();
+                            count.addConsumptionGasCars(currentCar.getConsumption());
+                        }
+
+                        if (currentCar.getIsDining()) {
+                            count.incrementNrCarsDined();
+                        } else {
+                            count.incrementNrCarsNotDined();
+                        }
+
+                        if (currentCar.getPassengers().equalsIgnoreCase("people")) {
+                            count.incrementNrCarsWithPeople();
+                        } else if (currentCar.getPassengers().equalsIgnoreCase("robots")) {
+                            count.incrementNrCarsWithRobots();
+                        }
+
                         System.out.println("Processed car: " + currentCar);
 
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        Thread.currentThread().interrupt();
                     } finally {
                         semaphore.release();
                         latch.countDown();
@@ -50,6 +72,7 @@ public class SemaphoreServing {
         }
 
         latch.await();
-        carStation.serveCars(queueCars, refuelStationQueue, serviceStationQueue, new CarsCount());
+        System.out.println("\nServing the cars:");
+        carStation.serveCars(threadSafeQueueCars, refuelStationQueue, serviceStationQueue);
     }
 }
