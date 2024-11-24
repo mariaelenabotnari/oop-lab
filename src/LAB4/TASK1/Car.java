@@ -1,4 +1,4 @@
-package LAB4;
+package LAB4.TASK1;
 
 public class Car {
     private int id;
@@ -7,7 +7,7 @@ public class Car {
     private Boolean isDining;
     private int consumption;
 
-    Car (int id, String type, String passengers, Boolean isDining, int consumption) {
+    public Car (int id, String type, String passengers, Boolean isDining, int consumption) {
         this.id = id;
         this.type = String.valueOf(type);
         this.passengers = passengers;

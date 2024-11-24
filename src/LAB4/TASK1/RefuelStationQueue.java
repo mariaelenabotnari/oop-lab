@@ -1,9 +1,9 @@
-package LAB4;
+package LAB4.TASK1;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ServiceStationQueue implements QueueInterface {
+public class RefuelStationQueue implements QueueInterface {
     @Override
     public Queue<Car> initializeQueue() {
         return new LinkedList<Car>();

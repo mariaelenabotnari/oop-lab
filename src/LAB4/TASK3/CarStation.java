@@ -1,4 +1,9 @@
-package LAB4;
+package LAB4.TASK3;
+
+import LAB4.TASK1.Car;
+import LAB4.TASK1.QueueInterface;
+import LAB4.TASK2.Dineable;
+import LAB4.TASK2.Refuelable;
 
 import java.util.Queue;
 
@@ -21,7 +26,7 @@ public class CarStation {
         this.serviceStationQueueObject = serviceStationQueueObject;
     }
 
-    void addCar(Car currentCar, Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
+    public void addCar(Car currentCar, Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
 
         queueCarsObject.addElementQueue(queueCars, currentCar);
         refuelStationQueueObject.addElementQueue(refuelStationQueue, currentCar);
@@ -33,7 +38,7 @@ public class CarStation {
         queueCars.poll();
     }
 
-    void serveCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
+    public void serveCars(Queue<Car> queueCars, Queue<Car> refuelStationQueue, Queue<Car> serviceStationQueue) {
         while (!refuelStationQueue.isEmpty()) {
             Car car = refuelStationQueue.poll();
 

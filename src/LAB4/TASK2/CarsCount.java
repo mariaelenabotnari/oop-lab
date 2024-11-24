@@ -1,4 +1,4 @@
-package LAB4;
+package LAB4.TASK2;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

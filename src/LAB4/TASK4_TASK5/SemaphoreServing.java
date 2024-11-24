@@ -1,4 +1,11 @@
-package LAB4;
+package LAB4.TASK4_TASK5;
+
+import LAB4.TASK1.Car;
+import LAB4.TASK1.QueueCars;
+import LAB4.TASK1.RefuelStationQueue;
+import LAB4.TASK1.ServiceStationQueue;
+import LAB4.TASK2.*;
+import LAB4.TASK3.CarStation;
 
 import java.io.IOException;
 import java.util.Queue;

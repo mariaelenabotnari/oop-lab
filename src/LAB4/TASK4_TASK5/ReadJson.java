@@ -1,5 +1,6 @@
-package LAB4;
+package LAB4.TASK4_TASK5;
 
+import LAB4.TASK1.Car;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

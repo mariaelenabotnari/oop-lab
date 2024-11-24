@@ -1,8 +1,12 @@
-package LAB4;
+package LAB4.TASK3;
 
+import LAB4.TASK1.Car;
+import LAB4.TASK1.QueueCars;
+import LAB4.TASK1.RefuelStationQueue;
+import LAB4.TASK1.ServiceStationQueue;
+import LAB4.TASK2.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package LAB4;
+package LAB4.TASK1;
 
 import org.junit.jupiter.api.Test;
 

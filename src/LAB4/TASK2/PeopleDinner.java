@@ -1,4 +1,6 @@
-package LAB4;
+package LAB4.TASK2;
+
+import LAB4.TASK1.Car;
 
 public class PeopleDinner implements Dineable {
     @Override

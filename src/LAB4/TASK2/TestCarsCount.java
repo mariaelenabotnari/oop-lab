@@ -1,5 +1,7 @@
-package LAB4;
+package LAB4.TASK2;
 
+import LAB4.TASK1.Car;
+import LAB4.TASK1.QueueCars;
 import org.junit.jupiter.api.Test;
 
 import java.util.Queue;
