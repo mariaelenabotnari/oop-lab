@@ -8,7 +8,7 @@ import LAB4.TASK2.CarsCount;
 import org.junit.jupiter.api.Test;
 import java.util.Queue;
 
-import static LAB4.TASK4_TASK5.ReadJson.readJsonData;
+import static LAB4.TASK4_TASK5.ReadJsonTest.readJsonDataTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SemaphoreServingTest {
@@ -26,7 +26,7 @@ public class SemaphoreServingTest {
 
         CarsCount count = new CarsCount();
 
-        readJsonData("src/LAB4/CarJSON", queueCars);
+        readJsonDataTest("src/LAB4/CarJSON", queueCars);
 
         SemaphoreServing semaphoreServing = new SemaphoreServing();
         semaphoreServing.servingCars(queueCars, refuelStationQueue, serviceStationQueue, count);
@@ -35,5 +35,4 @@ public class SemaphoreServingTest {
         assertEquals(1, serviceStationQueue.size(),
                 "serviceStationQueue should contain only cars marked for dining.");
     }
-
 }

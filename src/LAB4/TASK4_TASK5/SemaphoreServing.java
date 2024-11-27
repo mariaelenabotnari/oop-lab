@@ -67,7 +67,8 @@ public class SemaphoreServing {
 
                         System.out.println("Processed car: " + currentCar);
 
-                        Thread.sleep(3000);
+                        carStation.serveCars(threadSafeQueueCars, refuelStationQueue, serviceStationQueue);
+
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     } finally {
@@ -79,7 +80,5 @@ public class SemaphoreServing {
         }
 
         latch.await();
-        System.out.println("\nServing the cars:");
-        carStation.serveCars(threadSafeQueueCars, refuelStationQueue, serviceStationQueue);
     }
 }

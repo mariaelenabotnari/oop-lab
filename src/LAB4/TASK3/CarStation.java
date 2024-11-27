@@ -42,21 +42,16 @@ public class CarStation {
         while (!refuelStationQueue.isEmpty()) {
             Car car = refuelStationQueue.poll();
 
-            if (car.getType().equals("electric")) {
+            if (car.getType().equalsIgnoreCase("electric")) {
                 electricStation.refuel(car);
-                //count.incrementNrElectricCars();
-            }
-            else {
+            } else {
                 gasStation.refuel(car);
-                //count.incrementNrGasCars();
             }
             if (car.getIsDining()) {
-                if (car.getPassengers().equals("people")) {
+                if (car.getPassengers().equalsIgnoreCase("people")) {
                     diningServicePeople.serveDinner(car);
-                    //count.incrementNrCarsDined();
                 } else {
                     diningServiceRobot.serveDinner(car);
-                    //count.incrementNrCarsNotDined();
                 }
             }
         }

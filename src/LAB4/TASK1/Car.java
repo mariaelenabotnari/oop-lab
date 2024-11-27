@@ -19,8 +19,15 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car {id=" + id + ", type='" + type + "', passengers='" + passengers + "'}";
+        return "Car {" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", passengers='" + passengers + '\'' +
+                ", isDining=" + isDining +
+                ", consumption=" + consumption +
+                '}';
     }
+
 
     public int getId () {
         return id;
